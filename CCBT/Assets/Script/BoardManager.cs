@@ -9,11 +9,9 @@ public class BoardManager : MonoBehaviour
     public List<MassClass> massData = new List<MassClass>();
     public int Length;
     public MassClass[,] Board;
-    [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
     {
-        text.text = massData.ToString();
         Board = new MassClass[Length,Length];
         SetBoard();
         Shuffle(Board);

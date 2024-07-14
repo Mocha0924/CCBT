@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-      
+        _input.actions["Finish"].started += EndGame;
+       
         _input.actions["00"].started += AaAction;
         _input.actions["10"].started += BaAction;
         _input.actions["20"].started += CaAction;
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
    
     private void InputKey(int Vertical,int Beside)
     {
+        text.text = Vertical.ToString()+"  "+Beside.ToString();
         Debug.Log("押されました"+ boardManager.Board.Length);
         if (boardManager.Board[Vertical, Beside].isClear)
             return;
@@ -161,6 +163,15 @@ public class GameManager : MonoBehaviour
         ClearMassNum = 0;
     }
 
+    private void EndGame(InputAction.CallbackContext obj)
+    {
+
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+    #else
+    Application.Quit();//ゲームプレイ終了
+    #endif
+    }
     private void AaAction(InputAction.CallbackContext obj)
     {
         InputKey(0, 0);
