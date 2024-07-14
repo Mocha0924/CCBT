@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]private BoardManager boardManager;
@@ -16,23 +17,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip ClearGameAudio;
     [SerializeField] private PlayerInput _input;
     [SerializeField] private TextMeshProUGUI Timertext;
-
+    [SerializeField] private TextMeshProUGUI text;
     private bool isChoice = false;
     private int ClearMassNum = 0;
 
     private float Timer = 0;
     [SerializeField] private float MaxTime;
 
-    private void Start()
+    private bool isGamePlay = true;
+
+    private void OnEnable()
     {
         MainAudio = GetComponent<AudioSource>();
-    }
-    private void Update()
-    {
-        Timer+=Time.deltaTime;
-        Timertext.text = (MaxTime-Timer).ToString();
         _input.actions["Finish"].started += EndGame;
-       
+
         _input.actions["00"].started += AaAction;
         _input.actions["10"].started += BaAction;
         _input.actions["20"].started += CaAction;
@@ -87,12 +85,111 @@ public class GameManager : MonoBehaviour
         _input.actions["34"].canceled += UpKey;
         _input.actions["44"].canceled += UpKey;
 
+        
+    }
+  
+
+    private void StopGame()
+    {
+        _input.actions["00"].started -= AaAction;
+        _input.actions["10"].started -= BaAction;
+        _input.actions["20"].started -= CaAction;
+        _input.actions["30"].started -= DaAction;
+        _input.actions["40"].started -= EaAction;
+        _input.actions["01"].started -= AbAction;
+        _input.actions["11"].started -= BbAction;
+        _input.actions["21"].started -= CbAction;
+        _input.actions["31"].started -= DbAction;
+        _input.actions["41"].started -= EbAction;
+        _input.actions["02"].started -= AcAction;
+        _input.actions["12"].started -= BcAction;
+        _input.actions["22"].started -= CcAction;
+        _input.actions["32"].started -= DcAction;
+        _input.actions["42"].started -= EcAction;
+        _input.actions["03"].started -= AdAction;
+        _input.actions["13"].started -= BdAction;
+        _input.actions["23"].started -= CdAction;
+        _input.actions["33"].started -= DdAction;
+        _input.actions["43"].started -= EdAction;
+        _input.actions["04"].started -= AeAction;
+        _input.actions["14"].started -= BeAction;
+        _input.actions["24"].started -= CeAction;
+        _input.actions["34"].started -= DeAction;
+        _input.actions["44"].started -= EeAction;
+
+        _input.actions["00"].canceled -= UpKey;
+        _input.actions["10"].canceled -= UpKey;
+        _input.actions["20"].canceled -= UpKey;
+        _input.actions["30"].canceled -= UpKey;
+        _input.actions["40"].canceled -= UpKey;
+        _input.actions["01"].canceled -= UpKey;
+        _input.actions["11"].canceled -= UpKey;
+        _input.actions["21"].canceled -= UpKey;
+        _input.actions["31"].canceled -= UpKey;
+        _input.actions["41"].canceled -= UpKey;
+        _input.actions["02"].canceled -= UpKey;
+        _input.actions["12"].canceled -= UpKey;
+        _input.actions["22"].canceled -= UpKey;
+        _input.actions["32"].canceled -= UpKey;
+        _input.actions["42"].canceled -= UpKey;
+
+        _input.actions["03"].canceled -= UpKey;
+        _input.actions["13"].canceled -= UpKey;
+        _input.actions["23"].canceled -= UpKey;
+        _input.actions["33"].canceled -= UpKey;
+        _input.actions["43"].canceled -= UpKey;
+
+        _input.actions["04"].canceled -= UpKey;
+        _input.actions["14"].canceled -= UpKey;
+        _input.actions["24"].canceled -= UpKey;
+        _input.actions["34"].canceled -= UpKey;
+        _input.actions["44"].canceled -= UpKey;
+
+        _input.actions["00"].started += Retry;
+        _input.actions["10"].started += Retry;
+        _input.actions["20"].started += Retry;
+        _input.actions["30"].started += Retry;
+        _input.actions["40"].started += Retry;
+        _input.actions["01"].started += Retry;
+        _input.actions["11"].started += Retry;
+        _input.actions["21"].started += Retry;
+        _input.actions["31"].started += Retry;
+        _input.actions["41"].started += Retry;
+        _input.actions["02"].started += Retry;
+        _input.actions["12"].started += Retry;
+        _input.actions["22"].started += Retry;
+        _input.actions["32"].started += Retry;
+        _input.actions["42"].started += Retry;
+        _input.actions["03"].started += Retry;
+        _input.actions["13"].started += Retry;
+        _input.actions["23"].started += Retry;
+        _input.actions["33"].started += Retry;
+        _input.actions["43"].started += Retry;
+        _input.actions["04"].started += Retry;
+        _input.actions["14"].started += Retry;
+        _input.actions["24"].started += Retry;
+        _input.actions["34"].started += Retry;
+        _input.actions["44"].started += Retry;
+    }
+    private void Update()
+    {
+        if (!isGamePlay)
+            return;
+
+        Timer+=Time.deltaTime;
+        Timertext.text = (MaxTime-Timer).ToString();
+        if(MaxTime-Timer <=0)
+        {
+            Gameover();
+        }
+       
 
     }
    
     private void InputKey(int Vertical,int Beside)
     {
         Debug.Log("押されました"+ boardManager.Board.Length);
+        text.text = Vertical.ToString()+" "+Beside.ToString();
         if (boardManager.Board[Vertical, Beside].isClear)
             return;
 
@@ -169,6 +266,17 @@ public class GameManager : MonoBehaviour
         ClearMassNum = 0;
     }
 
+    private void Gameover()
+    {
+        isGamePlay = false;
+        StopGame();
+        TimerAudio.Stop();
+        MainAudio.PlayOneShot(BombAudio);
+        boardManager.Reset();
+        Timer = 0;
+        Debug.Log("ゲームオーバーです");
+    }
+
     private void EndGame(InputAction.CallbackContext obj)
     {
 
@@ -177,6 +285,36 @@ public class GameManager : MonoBehaviour
     #else
     Application.Quit();//ゲームプレイ終了
     #endif
+    }
+
+    private void Retry(InputAction.CallbackContext obj)
+    {
+        _input.actions["00"].started -= Retry;
+        _input.actions["10"].started -= Retry;
+        _input.actions["20"].started -= Retry;
+        _input.actions["30"].started -= Retry;
+        _input.actions["40"].started -= Retry;
+        _input.actions["01"].started -= Retry;
+        _input.actions["11"].started -= Retry;
+        _input.actions["21"].started -= Retry;
+        _input.actions["31"].started -= Retry;
+        _input.actions["41"].started -= Retry;
+        _input.actions["02"].started -= Retry;
+        _input.actions["12"].started -= Retry;
+        _input.actions["22"].started -= Retry;
+        _input.actions["32"].started -= Retry;
+        _input.actions["42"].started -= Retry;
+        _input.actions["03"].started -= Retry;
+        _input.actions["13"].started -= Retry;
+        _input.actions["23"].started -= Retry;
+        _input.actions["33"].started -= Retry;
+        _input.actions["43"].started -= Retry;
+        _input.actions["04"].started -= Retry;
+        _input.actions["14"].started -= Retry;
+        _input.actions["24"].started -= Retry;
+        _input.actions["34"].started -= Retry;
+        _input.actions["44"].started -= Retry;
+        SceneManager.LoadScene("SampleScene");
     }
     private void AaAction(InputAction.CallbackContext obj)
     {
