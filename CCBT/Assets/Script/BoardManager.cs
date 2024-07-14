@@ -28,19 +28,25 @@ public class BoardManager : MonoBehaviour
         {
             for(int j = 0;j < Length;j++)
             {
-                Board[i, j] = massData[DataID];
-                Board[i, j].isClear = false;
-                check++;
-                if (check >= 2)
+                if(i>=Length-1&&j>=Length-1)
+                    Board[Length - 1, Length - 1] = massData[0];
+                else
                 {
-                    DataID++;
-                    check = 0;
+                    Board[i, j] = massData[DataID];
+                    Board[i, j].isClear = false;
+                    check++;
+                    if (check >= 2)
+                    {
+                        DataID++;
+                        check = 0;
+                    }
                 }
+               
                    
             }
            
         }
-        Board[Length - 1, Length - 1] = massData[0];
+      
 
     }
 

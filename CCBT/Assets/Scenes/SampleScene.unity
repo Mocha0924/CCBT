@@ -586,7 +586,28 @@ MonoBehaviour:
   - audio: {fileID: 8300000, guid: e4b33365bd8f8ca45a097257b064eb5c, type: 3}
     ID: 5
     Bomb: 0
-  Length: 3
+  - audio: {fileID: 8300000, guid: 0fdf9027781a98a408f7c5312a1444cf, type: 3}
+    ID: 6
+    Bomb: 0
+  - audio: {fileID: 8300000, guid: 68ac651b01724d2439aaf39ae073b203, type: 3}
+    ID: 7
+    Bomb: 0
+  - audio: {fileID: 8300000, guid: d116d9fdedd825240b6fe916df81d43c, type: 3}
+    ID: 8
+    Bomb: 0
+  - audio: {fileID: 8300000, guid: fc7fe668ac5debc4eb3c92f576934369, type: 3}
+    ID: 9
+    Bomb: 0
+  - audio: {fileID: 8300000, guid: 14995f9fd034343449ebd9103b083a33, type: 3}
+    ID: 10
+    Bomb: 0
+  - audio: {fileID: 8300000, guid: ea57477f9804c984d96069c69c57dba2, type: 3}
+    ID: 11
+    Bomb: 0
+  - audio: {fileID: 8300000, guid: 60b0b276a8697d04ba77aa8a9d8df243, type: 3}
+    ID: 12
+    Bomb: 0
+  Length: 5
   text: {fileID: 102237219}
 --- !u!4 &1337802478
 Transform:
