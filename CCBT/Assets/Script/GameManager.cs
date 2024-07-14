@@ -3,28 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Runtime.CompilerServices;
 public class GameManager : MonoBehaviour
 {
-    private BoardManager boardManager;
+    [SerializeField]private BoardManager boardManager;
     private int SaveBoardVertical;
     private int SaveBoardBeside;
     private AudioSource MainAudio;
+    [SerializeField] private AudioSource TimerAudio;
     [SerializeField] private AudioClip ClearMassAudio;
     [SerializeField] private AudioClip BombAudio;
     [SerializeField] private AudioClip ClearGameAudio;
     [SerializeField] private PlayerInput _input;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI Timertext;
 
     private bool isChoice = false;
     private int ClearMassNum = 0;
 
+    private float Timer = 0;
+    [SerializeField] private float MaxTime;
+
     private void Start()
     {
         MainAudio = GetComponent<AudioSource>();
-        boardManager = GetComponent<BoardManager>();
     }
     private void Update()
     {
+        Timer+=Time.deltaTime;
+        Timertext.text = (MaxTime-Timer).ToString();
         _input.actions["Finish"].started += EndGame;
        
         _input.actions["00"].started += AaAction;
@@ -42,7 +48,6 @@ public class GameManager : MonoBehaviour
         _input.actions["22"].started += CcAction;
         _input.actions["32"].started += DcAction;
         _input.actions["42"].started += EcAction;
-
         _input.actions["03"].started += AdAction;
         _input.actions["13"].started += BdAction;
         _input.actions["23"].started += CdAction;
@@ -87,22 +92,23 @@ public class GameManager : MonoBehaviour
    
     private void InputKey(int Vertical,int Beside)
     {
-        text.text = Vertical.ToString()+"  "+Beside.ToString();
         Debug.Log("押されました"+ boardManager.Board.Length);
         if (boardManager.Board[Vertical, Beside].isClear)
             return;
 
+        if(boardManager.Board[Vertical, Beside].ID==0)
+        {
+            Bomb();
+        }
         MainAudio.PlayOneShot(boardManager.Board[Vertical, Beside].audio);
             if (isChoice)
             {
-                int check = CheckBoard(boardManager.Board[SaveBoardVertical, SaveBoardBeside], boardManager.Board[Vertical, Beside]);
-                switch (check)
-                {
-                    case -1: Gameover(); break;
-                    case 0: Discrepancy(); break;
-                    case 1: ClearMass(boardManager.Board[SaveBoardVertical, SaveBoardBeside], boardManager.Board[Vertical, Beside]); break;
-                }
-            }
+            if (CheckBoard(boardManager.Board[SaveBoardVertical, SaveBoardBeside], boardManager.Board[Vertical, Beside]))
+                ClearMass(boardManager.Board[SaveBoardVertical, SaveBoardBeside], boardManager.Board[Vertical, Beside]);
+            else
+                Discrepancy();
+
+        }
             else
             {
                 SaveBoardVertical = Vertical;
@@ -119,23 +125,23 @@ public class GameManager : MonoBehaviour
     {
         isChoice = false;
     }
-    private int CheckBoard(MassClass a,MassClass b)
+    private bool CheckBoard(MassClass a,MassClass b)
     {
-        if (a.ID == 0)
-            return -1;
         if (a.ID == b.ID)
-            return 1;
+            return true;
         else
-            return 0;
+            return false;
     }
 
-    private void Gameover()
+    private void Bomb()
     {
         MainAudio.PlayOneShot(BombAudio);
         isChoice = false;
-        boardManager.Reset();
-        Debug.Log("ゲームオーバーです");
-        ClearMassNum = 0;
+        Timer += 10;
+        if(TimerAudio.pitch < 1.5f)
+          TimerAudio.pitch += 0.1f;
+       // boardManager.Reset();
+       // ClearMassNum = 0;
     }
 
     private void Discrepancy()
