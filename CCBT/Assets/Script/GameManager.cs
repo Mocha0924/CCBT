@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     private BoardManager boardManager;
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip BombAudio;
     [SerializeField] private AudioClip ClearGameAudio;
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private TextMeshProUGUI text;
 
     private bool isChoice = false;
     private int ClearMassNum = 0;
@@ -20,6 +22,10 @@ public class GameManager : MonoBehaviour
     {
         MainAudio = GetComponent<AudioSource>();
         boardManager = GetComponent<BoardManager>();
+    }
+    private void Update()
+    {
+      
         _input.actions["00"].started += AaAction;
         _input.actions["10"].started += BaAction;
         _input.actions["20"].started += CaAction;
@@ -45,12 +51,11 @@ public class GameManager : MonoBehaviour
    
     private void InputKey(int Vertical,int Beside)
     {
-        Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½"+ boardManager.Board[Vertical, Beside].ID);
+        Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½"+ boardManager.Board.Length);
         if (boardManager.Board[Vertical, Beside].isClear)
             return;
 
-       
-            MainAudio.PlayOneShot(boardManager.Board[Vertical, Beside].audio);
+        MainAudio.PlayOneShot(boardManager.Board[Vertical, Beside].audio);
             if (isChoice)
             {
                 int check = CheckBoard(boardManager.Board[SaveBoardVertical, SaveBoardBeside], boardManager.Board[Vertical, Beside]);

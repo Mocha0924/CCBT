@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class BoardManager : MonoBehaviour
 {
-    [SerializeField] private MassDataBase massData;
+    public List<MassClass> massData = new List<MassClass>();
     public int Length;
     public MassClass[,] Board;
+    [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
     {
+        text.text = massData.ToString();
         Board = new MassClass[Length,Length];
         SetBoard();
         Shuffle(Board);
@@ -25,7 +28,7 @@ public class BoardManager : MonoBehaviour
         {
             for(int j = 0;j < Length;j++)
             {
-                Board[i, j] = massData.MassDataList[DataID];
+                Board[i, j] = massData[DataID];
                 Board[i, j].isClear = false;
                 check++;
                 if (check >= 2)
@@ -37,7 +40,7 @@ public class BoardManager : MonoBehaviour
             }
            
         }
-        Board[Length - 1, Length - 1] = massData.MassDataList[0];
+        Board[Length - 1, Length - 1] = massData[0];
 
     }
 
