@@ -568,7 +568,7 @@ MonoBehaviour:
   - audio: {fileID: 8300000, guid: 78ef079af7b7b764d8743e12bb7e4b7a, type: 3}
     ID: 1
     Bomb: 0
-  - audio: {fileID: 8300000, guid: 07c03f19817cff44dbcfa87c749e0c25, type: 3}
+  - audio: {fileID: 8300000, guid: 37789b81aec228f448eae2becee44fa0, type: 3}
     ID: 2
     Bomb: 0
   - audio: {fileID: 8300000, guid: bf5fcac1cdf0db249ac3f0df6a8b9796, type: 3}
@@ -762,15 +762,15 @@ MonoBehaviour:
   boardManager: {fileID: 1248563710}
   TimerAudio: {fileID: 1340038344}
   DiscrepancyAudio: {fileID: 8300000, guid: b1823af25d03f4647bf1091a2dc121ce, type: 3}
-  ClearMassAudio: {fileID: 8300000, guid: a9f72f7834771af4ca51015633ab89af, type: 3}
+  ClearMassAudio: {fileID: 8300000, guid: 9d164f2317eaa02469ad100d8578e148, type: 3}
   BombAudio: {fileID: 8300000, guid: ea57477f9804c984d96069c69c57dba2, type: 3}
   GameoverAudio: {fileID: 8300000, guid: 232b71f5cc5a49e4f85b26fc98ae9dc7, type: 3}
   ClearGameAudio: {fileID: 8300000, guid: 839411a1c559d1f468dce63931a84cb3, type: 3}
   _input: {fileID: 1337802481}
   Timertext: {fileID: 102237219}
   text: {fileID: 1150487782}
-  MaxTime: 300
-  BasePitchUpTime: 60
+  MaxTime: 600
+  BasePitchUpTime: 120
   BombDownTime: 30
 --- !u!114 &1337802481
 MonoBehaviour:
