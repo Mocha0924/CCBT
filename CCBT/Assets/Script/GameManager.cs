@@ -209,6 +209,7 @@ public class GameManager : MonoBehaviour
    
     private void InputKey(int Vertical,int Beside)
     {
+        MainAudio.Stop();
         Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½"+ boardManager.Board.Length);
         text.text = Vertical.ToString()+" "+Beside.ToString();
         if (boardManager.Board[Vertical, Beside].isClear)
