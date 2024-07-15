@@ -209,6 +209,7 @@ public class GameManager : MonoBehaviour
    
     private void InputKey(int Vertical,int Beside)
     {
+        MainAudio.panStereo = 0;
         MainAudio.Stop();
         Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½"+ boardManager.Board.Length);
         text.text = Vertical.ToString()+" "+Beside.ToString();
@@ -255,6 +256,7 @@ public class GameManager : MonoBehaviour
 
     private void Bomb()
     {
+        MainAudio.panStereo = 0;
         MainAudio.PlayOneShot(BombAudio);
         isChoice = false;
         Timer += BombDownTime;
@@ -263,6 +265,7 @@ public class GameManager : MonoBehaviour
 
     private void Discrepancy()
     {
+        MainAudio.panStereo = 1;
         MainAudio.Stop();
         MainAudio.PlayOneShot(DiscrepancyAudio);
         isChoice = false;
@@ -271,6 +274,7 @@ public class GameManager : MonoBehaviour
 
     private void ClearMass(MassClass a, MassClass b)
     {
+        MainAudio.panStereo = -1;
         MainAudio.Stop();
         MainAudio.PlayOneShot(ClearMassAudio);
         isChoice = false;
@@ -283,6 +287,7 @@ public class GameManager : MonoBehaviour
 
     private void ClearGame()
     {
+        MainAudio.panStereo = 0;
         isGamePlay = false;
         StopGame();
         TimerAudio.Stop();
@@ -292,6 +297,7 @@ public class GameManager : MonoBehaviour
 
     private void Gameover()
     {
+        MainAudio.panStereo = 0;
         isGamePlay = false;
         StopGame();
         TimerAudio.Stop();
