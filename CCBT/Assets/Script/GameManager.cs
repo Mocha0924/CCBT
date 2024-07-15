@@ -273,10 +273,11 @@ public class GameManager : MonoBehaviour
 
     private void ClearGame()
     {
+        isGamePlay = false;
+        StopGame();
+        TimerAudio.Stop();
         MainAudio.PlayOneShot(ClearGameAudio);
-        boardManager.Reset();
         Debug.Log("ÉQÅ[ÉÄÉNÉäÉAÇ≈Ç∑");
-        ClearMassNum = 0;
     }
 
     private void Gameover()
