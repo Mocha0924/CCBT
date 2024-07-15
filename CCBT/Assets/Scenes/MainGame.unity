@@ -732,7 +732,7 @@ MonoBehaviour:
   - audio: {fileID: 8300000, guid: 14995f9fd034343449ebd9103b083a33, type: 3}
     ID: 10
     Bomb: 0
-  - audio: {fileID: 8300000, guid: ea57477f9804c984d96069c69c57dba2, type: 3}
+  - audio: {fileID: 8300000, guid: ec7a029d4d0ed7a44a19c4c3621e6378, type: 3}
     ID: 11
     Bomb: 0
   - audio: {fileID: 8300000, guid: 60b0b276a8697d04ba77aa8a9d8df243, type: 3}
@@ -899,8 +899,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1248563710}
   TimerAudio: {fileID: 1340038344}
+  DiscrepancyAudio: {fileID: 8300000, guid: b1823af25d03f4647bf1091a2dc121ce, type: 3}
   ClearMassAudio: {fileID: 8300000, guid: a9f72f7834771af4ca51015633ab89af, type: 3}
-  BombAudio: {fileID: 8300000, guid: 232b71f5cc5a49e4f85b26fc98ae9dc7, type: 3}
+  BombAudio: {fileID: 8300000, guid: ea57477f9804c984d96069c69c57dba2, type: 3}
+  GameoverAudio: {fileID: 8300000, guid: 232b71f5cc5a49e4f85b26fc98ae9dc7, type: 3}
   ClearGameAudio: {fileID: 8300000, guid: 839411a1c559d1f468dce63931a84cb3, type: 3}
   _input: {fileID: 1337802481}
   Timertext: {fileID: 102237219}

@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     private int SaveBoardBeside;
     private AudioSource MainAudio;
     [SerializeField] private AudioSource TimerAudio;
+    [SerializeField] private AudioClip DiscrepancyAudio;
     [SerializeField] private AudioClip ClearMassAudio;
     [SerializeField] private AudioClip BombAudio;
+    [SerializeField] private AudioClip GameoverAudio;
     [SerializeField] private AudioClip ClearGameAudio;
     [SerializeField] private PlayerInput _input;
     [SerializeField] private TextMeshProUGUI Timertext;
@@ -188,7 +190,10 @@ public class GameManager : MonoBehaviour
             return;
 
         Timer+=Time.deltaTime;
-        Timertext.text = (MaxTime-Timer).ToString();
+        if(MaxTime - Timer <=0)
+            Timertext.text = "000" + "seconds remaining";
+        else
+            Timertext.text = (MaxTime-Timer).ToString("000")+ "seconds remaining";
         if(MaxTime-Timer <=0)
         {
             Gameover();
@@ -212,6 +217,7 @@ public class GameManager : MonoBehaviour
         if(boardManager.Board[Vertical, Beside].ID==0)
         {
             Bomb();
+            return;
         }
         MainAudio.PlayOneShot(boardManager.Board[Vertical, Beside].audio);
             if (isChoice)
@@ -256,12 +262,15 @@ public class GameManager : MonoBehaviour
 
     private void Discrepancy()
     {
+        MainAudio.Stop();
+        MainAudio.PlayOneShot(DiscrepancyAudio);
         isChoice = false;
         Debug.Log("ˆá‚¢‚Ü‚·");
     }
 
     private void ClearMass(MassClass a, MassClass b)
     {
+        MainAudio.Stop();
         MainAudio.PlayOneShot(ClearMassAudio);
         isChoice = false;
         a.isClear = true;
