@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private float Timer = 0;
     [SerializeField] private float MaxTime;
     [SerializeField]private float BasePitchUpTime;
+    [SerializeField] private float BombDownTime;
     private float PitchUpTime;
 
     private bool isGamePlay = true;
@@ -88,7 +89,9 @@ public class GameManager : MonoBehaviour
         _input.actions["34"].canceled += UpKey;
         _input.actions["44"].canceled += UpKey;
 
-        
+       
+
+
     }
   
 
@@ -148,6 +151,7 @@ public class GameManager : MonoBehaviour
         _input.actions["34"].canceled -= UpKey;
         _input.actions["44"].canceled -= UpKey;
 
+
         _input.actions["00"].started += Retry;
         _input.actions["10"].started += Retry;
         _input.actions["20"].started += Retry;
@@ -173,6 +177,10 @@ public class GameManager : MonoBehaviour
         _input.actions["24"].started += Retry;
         _input.actions["34"].started += Retry;
         _input.actions["44"].started += Retry;
+
+
+
+
     }
     private void Update()
     {
@@ -242,9 +250,8 @@ public class GameManager : MonoBehaviour
     {
         MainAudio.PlayOneShot(BombAudio);
         isChoice = false;
-        Timer += 100;
-       // boardManager.Reset();
-       // ClearMassNum = 0;
+        Timer += BombDownTime;
+        
     }
 
     private void Discrepancy()
@@ -295,32 +302,37 @@ public class GameManager : MonoBehaviour
 
     private void Retry(InputAction.CallbackContext obj)
     {
-        _input.actions["00"].started -= Retry;
-        _input.actions["10"].started -= Retry;
-        _input.actions["20"].started -= Retry;
-        _input.actions["30"].started -= Retry;
-        _input.actions["40"].started -= Retry;
-        _input.actions["01"].started -= Retry;
-        _input.actions["11"].started -= Retry;
-        _input.actions["21"].started -= Retry;
-        _input.actions["31"].started -= Retry;
-        _input.actions["41"].started -= Retry;
-        _input.actions["02"].started -= Retry;
-        _input.actions["12"].started -= Retry;
-        _input.actions["22"].started -= Retry;
-        _input.actions["32"].started -= Retry;
-        _input.actions["42"].started -= Retry;
-        _input.actions["03"].started -= Retry;
-        _input.actions["13"].started -= Retry;
-        _input.actions["23"].started -= Retry;
-        _input.actions["33"].started -= Retry;
-        _input.actions["43"].started -= Retry;
-        _input.actions["04"].started -= Retry;
-        _input.actions["14"].started -= Retry;
-        _input.actions["24"].started -= Retry;
-        _input.actions["34"].started -= Retry;
-        _input.actions["44"].started -= Retry;
-        SceneManager.LoadScene("Tutorial");
+        if (!isGamePlay)
+        {
+            Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½");
+            SceneManager.LoadScene("Tutorial");
+            _input.actions["00"].started -= Retry;
+            _input.actions["10"].started -= Retry;
+            _input.actions["20"].started -= Retry;
+            _input.actions["30"].started -= Retry;
+            _input.actions["40"].started -= Retry;
+            _input.actions["01"].started -= Retry;
+            _input.actions["11"].started -= Retry;
+            _input.actions["21"].started -= Retry;
+            _input.actions["31"].started -= Retry;
+            _input.actions["41"].started -= Retry;
+            _input.actions["02"].started -= Retry;
+            _input.actions["12"].started -= Retry;
+            _input.actions["22"].started -= Retry;
+            _input.actions["32"].started -= Retry;
+            _input.actions["42"].started -= Retry;
+            _input.actions["03"].started -= Retry;
+            _input.actions["13"].started -= Retry;
+            _input.actions["23"].started -= Retry;
+            _input.actions["33"].started -= Retry;
+            _input.actions["43"].started -= Retry;
+            _input.actions["04"].started -= Retry;
+            _input.actions["14"].started -= Retry;
+            _input.actions["24"].started -= Retry;
+            _input.actions["34"].started -= Retry;
+            _input.actions["44"].started -= Retry;
+        }
+
     }
     private void AaAction(InputAction.CallbackContext obj)
     {

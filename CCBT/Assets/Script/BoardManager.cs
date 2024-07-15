@@ -66,8 +66,15 @@ public class BoardManager : MonoBehaviour
             }
            
         }
+        for (int i = 0; i < Length; i++)
+        {
+            for (int j = 0; j < Length; j++)
+            {
+                Debug.Log(board[i, j].ID);
+            }
 
-       
+        }
+
     }
 
     public void Reset()
