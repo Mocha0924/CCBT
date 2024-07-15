@@ -257,59 +257,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102237217}
   m_CullTransparentMesh: 1
---- !u!1 &391571443
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 391571445}
-  - component: {fileID: 391571444}
-  m_Layer: 0
-  m_Name: Midi
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &391571444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391571443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 390e5cebc37d6d7258bdb58f0380f9d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteFilter:
-    note: 0
-    octave: 0
-  noteOnEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  noteOffEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &391571445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391571443}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.38073575, y: 0.22111396, z: 0.0057173977}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1337802478}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +565,7 @@ MonoBehaviour:
   - audio: {fileID: 8300000, guid: d53f85616439c1a49b018e70da530c1a, type: 3}
     ID: 0
     Bomb: 1
-  - audio: {fileID: 8300000, guid: 37789b81aec228f448eae2becee44fa0, type: 3}
+  - audio: {fileID: 8300000, guid: 78ef079af7b7b764d8743e12bb7e4b7a, type: 3}
     ID: 1
     Bomb: 0
   - audio: {fileID: 8300000, guid: 07c03f19817cff44dbcfa87c749e0c25, type: 3}
@@ -633,7 +580,7 @@ MonoBehaviour:
   - audio: {fileID: 8300000, guid: d14c92fb0cb78f94a85ac032e8082a72, type: 3}
     ID: 5
     Bomb: 0
-  - audio: {fileID: 8300000, guid: 39994ea06dc2a5b4d92b9396c6671e68, type: 3}
+  - audio: {fileID: 8300000, guid: afacf75847ca61142aa5106372302650, type: 3}
     ID: 6
     Bomb: 0
   - audio: {fileID: 8300000, guid: fbe133b1790604d42a3c515ce8a8fd73, type: 3}
@@ -651,7 +598,7 @@ MonoBehaviour:
   - audio: {fileID: 8300000, guid: 4be81ee517fb02a4491580a6911232e9, type: 3}
     ID: 11
     Bomb: 0
-  - audio: {fileID: 8300000, guid: 7ea5a6be353e30749a32894a976c6fd0, type: 3}
+  - audio: {fileID: 8300000, guid: 5b7514fdcd128034f9be1ccfdef597d7, type: 3}
     ID: 12
     Bomb: 0
   Length: 5
@@ -701,8 +648,7 @@ Transform:
   m_LocalPosition: {x: -0.38073575, y: -0.22111396, z: -0.0057173977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 391571445}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1337802479
@@ -973,7 +919,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d2cd0be146ee1e84099db8c4d361ed8a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
