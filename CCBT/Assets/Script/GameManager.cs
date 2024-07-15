@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         PitchUpTime += BasePitchUpTime;
         MainAudio = GetComponent<AudioSource>();
-        _input.actions["Finish"].started += EndGame;
+        
 
         _input.actions["00"].started += AaAction;
         _input.actions["10"].started += BaAction;
@@ -300,15 +300,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("ゲームオーバーです");
     }
 
-    private void EndGame(InputAction.CallbackContext obj)
-    {
-
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
-    #else
-    Application.Quit();//ゲームプレイ終了
-    #endif
-    }
+   
 
     private void Retry(InputAction.CallbackContext obj)
     {

@@ -909,7 +909,7 @@ MonoBehaviour:
   text: {fileID: 1150487782}
   MaxTime: 300
   BasePitchUpTime: 60
-  BombDownTime: 60
+  BombDownTime: 30
 --- !u!114 &1337802481
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class TutorialController : MonoBehaviour
 
     private void Awake()
     {
+        _input.actions["Finish"].started += EndGame;
         _input.actions["00"].started += Input;
         _input.actions["10"].started += Input;
         _input.actions["20"].started += Input;
@@ -86,7 +87,15 @@ public class TutorialController : MonoBehaviour
             SetTutorial();
         }
     }
+    private void EndGame(InputAction.CallbackContext obj)
+    {
 
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+#else
+    Application.Quit();//ゲームプレイ終了
+#endif
+    }
     private void SetTutorial()
     {
         PlayAudioSource.PlayOneShot(PushSound);
