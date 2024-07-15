@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour
 
     private float Timer = 0;
     [SerializeField] private float MaxTime;
+    [SerializeField]private float BasePitchUpTime;
+    private float PitchUpTime;
 
     private bool isGamePlay = true;
 
-    private void OnEnable()
+    private void Awake()
     {
+        PitchUpTime += BasePitchUpTime;
         MainAudio = GetComponent<AudioSource>();
         _input.actions["Finish"].started += EndGame;
 
@@ -182,7 +185,12 @@ public class GameManager : MonoBehaviour
         {
             Gameover();
         }
-       
+       if(Timer >= PitchUpTime)
+        {
+            if (TimerAudio.pitch < 1.5f)
+                TimerAudio.pitch += 0.1f;
+            PitchUpTime += BasePitchUpTime;
+        }
 
     }
    
@@ -234,9 +242,7 @@ public class GameManager : MonoBehaviour
     {
         MainAudio.PlayOneShot(BombAudio);
         isChoice = false;
-        Timer += 10;
-        if(TimerAudio.pitch < 1.5f)
-          TimerAudio.pitch += 0.1f;
+        Timer += 100;
        // boardManager.Reset();
        // ClearMassNum = 0;
     }
@@ -314,7 +320,7 @@ public class GameManager : MonoBehaviour
         _input.actions["24"].started -= Retry;
         _input.actions["34"].started -= Retry;
         _input.actions["44"].started -= Retry;
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Tutorial");
     }
     private void AaAction(InputAction.CallbackContext obj)
     {
