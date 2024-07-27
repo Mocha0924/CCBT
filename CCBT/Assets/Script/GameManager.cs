@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Runtime.CompilerServices;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField]private BoardManager boardManager;
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Timertext;
     [SerializeField] private TextMeshProUGUI text;
     private bool isChoice = false;
+    private bool isResultFirst = false;
     private int ClearMassNum = 0;
 
     private float Timer = 0;
@@ -31,6 +34,17 @@ public class GameManager : MonoBehaviour
 
     private bool isGamePlay = true;
 
+    private AudioClip ResultVoice;
+    [SerializeField] private AudioClip[] ResultVoiceDatas = new AudioClip[4];
+    [SerializeField] private AudioClip RetryVoice;
+    private enum VoiceType
+    {
+        Stop,
+        FinishSound,
+        ResultVoice,
+        RetryVoice
+    }
+    private VoiceType type = VoiceType.Stop;
     private void Awake()
     {
         PitchUpTime += BasePitchUpTime;
@@ -154,6 +168,15 @@ public class GameManager : MonoBehaviour
         _input.actions["44"].canceled -= UpKey;
 
 
+       
+
+
+
+
+    }
+
+    private void RetryGame()
+    {
         _input.actions["00"].started += Retry;
         _input.actions["10"].started += Retry;
         _input.actions["20"].started += Retry;
@@ -179,17 +202,18 @@ public class GameManager : MonoBehaviour
         _input.actions["24"].started += Retry;
         _input.actions["34"].started += Retry;
         _input.actions["44"].started += Retry;
-
-
-
-
     }
     private void Update()
     {
         if (!isGamePlay)
+        {
+            SetRetryVoice();
             return;
+        }
+          
+   
 
-        Timer+=Time.deltaTime;
+        Timer +=Time.deltaTime;
         if(MaxTime - Timer <=0)
             Timertext.text = "000" + "seconds remaining";
         else
@@ -293,6 +317,14 @@ public class GameManager : MonoBehaviour
         TimerAudio.Stop();
         MainAudio.PlayOneShot(ClearGameAudio);
         Debug.Log("ゲームクリアです");
+        float NowTimer = MaxTime - Timer;
+        if (NowTimer >= MaxTime/2)
+            ResultVoice = ResultVoiceDatas[1];
+        else if(NowTimer >=MaxTime / 4)
+                ResultVoice = ResultVoiceDatas[2];
+        else
+            ResultVoice = ResultVoiceDatas[2];
+        type = VoiceType.FinishSound;
     }
 
     private void Gameover()
@@ -305,10 +337,46 @@ public class GameManager : MonoBehaviour
         boardManager.Reset();
         Timer = 0;
         Debug.Log("ゲームオーバーです");
+        ResultVoice = ResultVoiceDatas[0];
+        type = VoiceType.FinishSound;
     }
 
    
-
+    private void SetRetryVoice()
+    {
+        if(!MainAudio.isPlaying)
+        {
+            Debug.Log("流れました");
+           switch(type)
+            {
+                case VoiceType.Stop:break;
+                case VoiceType.FinishSound: 
+                    {
+                        type = VoiceType.ResultVoice;
+                        MainAudio.PlayOneShot(ResultVoice);
+                        break;
+                    }
+                case VoiceType.ResultVoice:
+                    {
+                        type = VoiceType.RetryVoice;
+                        MainAudio.PlayOneShot(RetryVoice);
+                        break;
+                    }
+                case VoiceType.RetryVoice:
+                    {
+                        type = VoiceType.ResultVoice;
+                        MainAudio.PlayOneShot(ResultVoice);
+                        if(!isResultFirst)
+                        {
+                            RetryGame();
+                            isResultFirst = true;
+                         
+                        }
+                        break;
+                    }
+            }
+        }
+    }
     private void Retry(InputAction.CallbackContext obj)
     {
         if (!isGamePlay)

@@ -9,6 +9,7 @@ public class BoardManager : MonoBehaviour
     public List<MassClass> massData = new List<MassClass>();
     public int Length;
     public MassClass[,] Board;
+    [SerializeField] private TextMeshProUGUI[] BoardText;
 
     private void Awake()
     {
@@ -39,12 +40,14 @@ public class BoardManager : MonoBehaviour
                         check = 0;
                     }
                 }
-               
-                   
+             
+
+
             }
            
         }
-      
+
+        
 
     }
 
@@ -63,13 +66,18 @@ public class BoardManager : MonoBehaviour
                 board[i,j] = board[IrandomIndex,JrandomIndex];
 
                 board[IrandomIndex, JrandomIndex] = temp;
+               
             }
            
         }
+
+        int k = 0;
         for (int i = 0; i < Length; i++)
         {
             for (int j = 0; j < Length; j++)
             {
+                BoardText[k].text = Board[i, j].ID.ToString();
+                k++;
                 Debug.Log(board[i, j].ID);
             }
 
