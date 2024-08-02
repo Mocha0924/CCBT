@@ -37,12 +37,14 @@ public class GameManager : MonoBehaviour
     private AudioClip ResultVoice;
     [SerializeField] private AudioClip[] ResultVoiceDatas = new AudioClip[4];
     [SerializeField] private AudioClip RetryVoice;
+    [SerializeField] private AudioClip RetryUrgeVoice;
     private enum VoiceType
     {
         Stop,
         FinishSound,
         ResultVoice,
-        RetryVoice
+        RetryVoice,
+        RetryUrgeVoice
     }
     private VoiceType type = VoiceType.Stop;
     private void Awake()
@@ -364,13 +366,19 @@ public class GameManager : MonoBehaviour
                     }
                 case VoiceType.RetryVoice:
                     {
+                        type = VoiceType.RetryUrgeVoice;
+                        MainAudio.PlayOneShot(RetryUrgeVoice);
+                        break;
+                    }
+                case VoiceType.RetryUrgeVoice:
+                    {
                         type = VoiceType.ResultVoice;
                         MainAudio.PlayOneShot(ResultVoice);
-                        if(!isResultFirst)
+                        if (!isResultFirst)
                         {
                             RetryGame();
                             isResultFirst = true;
-                         
+
                         }
                         break;
                     }

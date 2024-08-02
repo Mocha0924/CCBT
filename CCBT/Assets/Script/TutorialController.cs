@@ -12,6 +12,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField]private AudioSource BeforeAudioSource;
     [SerializeField]private AudioSource AfterAudioSource;
     [SerializeField] private AudioClip PushSound;
+    private uint SkipTutorial = 0; 
 
 
     private void Awake()
@@ -43,14 +44,43 @@ public class TutorialController : MonoBehaviour
         _input.actions["34"].started += Input;
         _input.actions["44"].started += Input;
 
-       
+        _input.actions["00"].canceled += Up;
+        _input.actions["10"].canceled += Up;
+        _input.actions["20"].canceled += Up;
+        _input.actions["30"].canceled += Up;
+        _input.actions["40"].canceled += Up;
+        _input.actions["01"].canceled += Up;
+        _input.actions["11"].canceled += Up;
+        _input.actions["21"].canceled += Up;
+        _input.actions["31"].canceled += Up;
+        _input.actions["41"].canceled += Up;
+        _input.actions["02"].canceled += Up;
+        _input.actions["12"].canceled += Up;
+        _input.actions["22"].canceled += Up;
+        _input.actions["32"].canceled += Up;
+        _input.actions["42"].canceled += Up;
+        _input.actions["03"].canceled += Up;
+        _input.actions["13"].canceled += Up;
+        _input.actions["23"].canceled += Up;
+        _input.actions["33"].canceled += Up;
+        _input.actions["43"].canceled += Up;
+        _input.actions["04"].canceled += Up;
+        _input.actions["14"].canceled += Up;
+        _input.actions["24"].canceled += Up;
+        _input.actions["34"].canceled += Up;
+        _input.actions["44"].canceled += Up;
+
+
     }
 
     private void Input(InputAction.CallbackContext obj)
     {
-        if(TutorialStart)
+        SkipTutorial++;
+        Debug.Log(SkipTutorial);
+        if (TutorialStart)
         {
-            if(!AfterAudioSource.isPlaying)
+           
+            if (!AfterAudioSource.isPlaying||SkipTutorial >=3)
             {
                 _input.actions["00"].started -= Input;
                 _input.actions["10"].started -= Input;
@@ -77,6 +107,32 @@ public class TutorialController : MonoBehaviour
                 _input.actions["24"].started -= Input;
                 _input.actions["34"].started -= Input;
                 _input.actions["44"].started -= Input;
+
+                _input.actions["00"].canceled -= Up;
+                _input.actions["10"].canceled -= Up;
+                _input.actions["20"].canceled -= Up;
+                _input.actions["30"].canceled -= Up;
+                _input.actions["40"].canceled -= Up;
+                _input.actions["01"].canceled -= Up;
+                _input.actions["11"].canceled -= Up;
+                _input.actions["21"].canceled -= Up;
+                _input.actions["31"].canceled -= Up;
+                _input.actions["41"].canceled -= Up;
+                _input.actions["02"].canceled -= Up;
+                _input.actions["12"].canceled -= Up;
+                _input.actions["22"].canceled -= Up;
+                _input.actions["32"].canceled -= Up;
+                _input.actions["42"].canceled -= Up;
+                _input.actions["03"].canceled -= Up;
+                _input.actions["13"].canceled -= Up;
+                _input.actions["23"].canceled -= Up;
+                _input.actions["33"].canceled -= Up;
+                _input.actions["43"].canceled -= Up;
+                _input.actions["04"].canceled -= Up;
+                _input.actions["14"].canceled -= Up;
+                _input.actions["24"].canceled -= Up;
+                _input.actions["34"].canceled -= Up;
+                _input.actions["44"].canceled -= Up;
                 SceneManager.LoadScene("MainGame");
             }
             
@@ -86,6 +142,12 @@ public class TutorialController : MonoBehaviour
             TutorialStart = true;
             SetTutorial();
         }
+    }
+
+    private void Up(InputAction.CallbackContext obj)
+    {
+        SkipTutorial--;
+        Debug.Log(SkipTutorial);
     }
     private void EndGame(InputAction.CallbackContext obj)
     {
