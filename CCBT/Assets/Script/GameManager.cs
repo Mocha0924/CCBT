@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
 
     private void RetryGame()
     {
-        _input.actions["00"].started += Retry;
+        _input.actions["00"].started += SkipRetry;
         _input.actions["10"].started += Retry;
         _input.actions["20"].started += Retry;
         _input.actions["30"].started += Retry;
@@ -390,8 +390,7 @@ public class GameManager : MonoBehaviour
         if (!isGamePlay)
         {
             Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½");
-            SceneManager.LoadScene("Tutorial");
-            _input.actions["00"].started -= Retry;
+            _input.actions["00"].started -= SkipRetry;
             _input.actions["10"].started -= Retry;
             _input.actions["20"].started -= Retry;
             _input.actions["30"].started -= Retry;
@@ -416,8 +415,43 @@ public class GameManager : MonoBehaviour
             _input.actions["24"].started -= Retry;
             _input.actions["34"].started -= Retry;
             _input.actions["44"].started -= Retry;
+            SceneManager.LoadScene("Tutorial");
         }
 
+    }
+
+    private void SkipRetry(InputAction.CallbackContext obj)
+    {
+        if (!isGamePlay)
+        {
+            Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½");
+            _input.actions["00"].started -= SkipRetry;
+            _input.actions["10"].started -= Retry;
+            _input.actions["20"].started -= Retry;
+            _input.actions["30"].started -= Retry;
+            _input.actions["40"].started -= Retry;
+            _input.actions["01"].started -= Retry;
+            _input.actions["11"].started -= Retry;
+            _input.actions["21"].started -= Retry;
+            _input.actions["31"].started -= Retry;
+            _input.actions["41"].started -= Retry;
+            _input.actions["02"].started -= Retry;
+            _input.actions["12"].started -= Retry;
+            _input.actions["22"].started -= Retry;
+            _input.actions["32"].started -= Retry;
+            _input.actions["42"].started -= Retry;
+            _input.actions["03"].started -= Retry;
+            _input.actions["13"].started -= Retry;
+            _input.actions["23"].started -= Retry;
+            _input.actions["33"].started -= Retry;
+            _input.actions["43"].started -= Retry;
+            _input.actions["04"].started -= Retry;
+            _input.actions["14"].started -= Retry;
+            _input.actions["24"].started -= Retry;
+            _input.actions["34"].started -= Retry;
+            _input.actions["44"].started -= Retry;
+            SceneManager.LoadScene("MainGame");
+        }
     }
     private void AaAction(InputAction.CallbackContext obj)
     {
